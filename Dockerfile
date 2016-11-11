@@ -11,7 +11,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
     && mkdir -p /home/gitlab \
     && useradd -g gitlab -d /home/gitlab gitlab \
     && chsh -s /bin/bash gitlab \
-    && chown -R gitlab:gitlab /home/gitlab
+    && chown -R gitlab:gitlab /home/gitlab \
+    && usermod -a -G sudo gitlab
 
 USER gitlab
 
