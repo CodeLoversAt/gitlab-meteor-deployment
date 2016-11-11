@@ -14,23 +14,12 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
     && chown -R gitlab:gitlab /home/gitlab \
     && usermod -a -G sudo gitlab
 
-# install NVM and Meteor
-ENV NVM_DIR /usr/local/nvm
-ENV NODE_VERSION 4.6.2
-
-# Install nvm with node and npm
-RUN curl https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash \
-    && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" \
-    && nvm install $NODE_VERSION \
-    && nvm alias default $NODE_VERSION \
-    && nvm use default
-
-ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
-ENV PATH      $NVM_DIR/v$NODE_VERSION/bin:$PATH
-
-RUN npm i -g npm@latest \
+# install Node.js
+RUN curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash - \
+    && apt-get install -y nodejs \
+    && npm i -g npm@latest \
     && npm i -g node-gyp 
 
-USER gitlab
-
 RUN curl https://install.meteor.com/ | sh
+
+USER gitlab
