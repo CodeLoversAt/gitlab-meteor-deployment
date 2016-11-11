@@ -15,7 +15,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
     && usermod -a -G sudo gitlab
 
 # install Node.js
-RUN curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash - \
+RUN curl -sL https://deb.nodesource.com/setup_0.10 | sudo -E bash - \
     && apt-get install -y nodejs \
     && npm i -g npm@latest \
     && npm i -g node-gyp 
