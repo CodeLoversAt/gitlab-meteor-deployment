@@ -12,3 +12,5 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
     && npm i -g npm@latest \
     && npm i -g node-gyp \
     && curl https://install.meteor.com/ | sh
+
+ENV METEOR_ALLOW_SUPERUSER true
