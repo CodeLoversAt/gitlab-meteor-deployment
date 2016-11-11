@@ -17,14 +17,20 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
 USER gitlab
 
 # install NVM and Meteor
-RUN cd /home/gitlab && touch ~/.bashrc 
+ENV NVM_DIR /usr/local/nvm
+ENV NODE_VERSION 4.5
 
-RUN curl https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash 
+# Install nvm with node and npm
+RUN curl https://raw.githubusercontent.com/creationix/nvm/v0.32.1install.sh | bash \
+    && source $NVM_DIR/nvm.sh \
+    && nvm install $NODE_VERSION \
+    && nvm alias default $NODE_VERSION \
+    && nvm use default
 
-RUN export NVM_DIR="/home/gitlab/.nvm" \
-    && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" \
-    && nvm i 4.5 \
-    && npm i -g npm@latest \
+ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
+ENV PATH      $NVM_DIR/v$NODE_VERSION/bin:$PATH
+
+RUN npm i -g npm@latest \
     && npm i -g node-gyp 
 
 RUN curl https://install.meteor.com/ | sh
