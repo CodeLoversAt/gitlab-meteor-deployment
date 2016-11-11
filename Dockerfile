@@ -20,7 +20,7 @@ ENV NODE_VERSION 0.10.48
 
 # Install nvm with node and npm
 RUN curl https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash \
-    && source $NVM_DIR/nvm.sh \
+    && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" \
     && nvm install $NODE_VERSION \
     && nvm alias default $NODE_VERSION \
     && nvm use default
@@ -28,9 +28,9 @@ RUN curl https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | b
 ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
 ENV PATH      $NVM_DIR/v$NODE_VERSION/bin:$PATH
 
-USER gitlab
-
 RUN npm i -g npm@latest \
     && npm i -g node-gyp 
+
+USER gitlab
 
 RUN curl https://install.meteor.com/ | sh
