@@ -17,7 +17,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
 USER gitlab
 
 # install NVM and Meteor
-RUN touch ~/.bashrc \
+RUN cd /home/gitlab && touch ~/.bashrc \
     && curl https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash \
     && export NVM_DIR="/home/gitlab/.nvm" \
     && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" \
