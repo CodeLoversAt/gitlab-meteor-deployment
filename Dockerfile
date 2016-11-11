@@ -18,7 +18,7 @@ USER gitlab
 
 # install NVM and Meteor
 ENV NVM_DIR /usr/local/nvm
-ENV NODE_VERSION 4.5
+ENV NODE_VERSION 4.6.2
 
 # Install nvm with node and npm
 RUN curl https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash \
